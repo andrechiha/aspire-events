@@ -1,0 +1,445 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+a { color: #FFD700; }
+
+.center-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #000;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333;
+  border-top-color: #FFD700;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.banned-card {
+  background: #111;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.banned-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.banned-card h2 {
+  color: #e53e3e;
+}
+
+.banned-card p {
+  color: #999;
+  margin-top: 8px;
+}
+
+/* ================================================================
+   Order QR Modal (shared)
+   ================================================================ */
+.oqm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: oqmFadeIn 0.2s ease;
+}
+
+@keyframes oqmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.oqm-modal {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 380px;
+  padding: 28px 24px;
+  position: relative;
+  animation: oqmSlideIn 0.25s ease;
+}
+
+@keyframes oqmSlideIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.oqm-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #888;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.oqm-close:hover {
+  color: #fff;
+  border-color: #555;
+}
+
+.oqm-qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.oqm-qr-wrap {
+  background: #0a0a0a;
+  border: 2px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oqm-scan-hint {
+  font-size: 11px;
+  color: #555;
+  margin-top: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.oqm-info {
+  border-top: 1px solid #1a1a1a;
+  padding-top: 18px;
+}
+
+.oqm-event-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.oqm-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oqm-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.oqm-detail-icon {
+  color: #FFD700;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.oqm-detail-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.oqm-detail-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 1px;
+  word-break: break-all;
+}
+
+.oqm-fee {
+  color: #FFD700;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════════
+   AI REPORT PANEL
+═══════════════════════════════════════ */
+.ai-report-section {
+  margin-top: 12px;
+  border-top: 1px solid #222;
+  padding-top: 12px;
+}
+
+.ai-report-locked {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-size: 13px;
+  padding: 12px;
+  background: #0d0d0d;
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+}
+
+.ai-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ai-report-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-report-brain { color: #a78bfa; }
+.ai-report-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ai-report-gen-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+.ai-report-gen-btn:hover:not(:disabled) { opacity: 0.85; }
+.ai-report-gen-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@keyframes aiSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.ai-spin { animation: aiSpin 1s linear infinite; }
+
+.ai-report-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 8px;
+  color: #f87171;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.ai-report-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Sentiment ring */
+.ai-sentiment-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #0d0d0d;
+  border-radius: 12px;
+  border: 1px solid #1a1a1a;
+}
+.ai-sentiment-ring {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+.ai-sentiment-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.ai-ring-bg {
+  fill: none;
+  stroke: #1a1a1a;
+  stroke-width: 6;
+}
+.ai-ring-fill {
+  fill: none;
+  stroke: var(--color);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s ease;
+}
+.ai-sentiment-score {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}
+.ai-sentiment-info { display: flex; flex-direction: column; gap: 2px; }
+.ai-sentiment-label {
+  font-size: 16px;
+  font-weight: 700;
+}
+.ai-sentiment-sub {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Summaries */
+.ai-summary-card {
+  padding: 12px;
+  background: #0d0d0d;
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+}
+.ai-summary-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #a78bfa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
+}
+.ai-summary-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+/* Lists */
+.ai-list-card {
+  padding: 12px;
+  background: #0d0d0d;
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+}
+.ai-list-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
+}
+.ai-list-card--pos .ai-list-title { color: #22c55e; }
+.ai-list-card--neg .ai-list-title { color: #ef4444; }
+.ai-list-card--sug .ai-list-title { color: #eab308; }
+
+.ai-list-card ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ai-list-card li {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.4;
+}
+.ai-list-card--pos li::marker { color: #22c55e; }
+.ai-list-card--neg li::marker { color: #ef4444; }
+.ai-list-card--sug li::marker { color: #eab308; }
+
+/* Topics */
+.ai-topics-card {
+  padding: 12px;
+  background: #0d0d0d;
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+}
+.ai-topics-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #a78bfa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 10px 0;
+}
+.ai-topics-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ai-topic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #ccc;
+  font-weight: 500;
+}
+.ai-topic-count {
+  background: #7c3aed;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.ai-report-footer {
+  font-size: 11px;
+  color: #444;
+  text-align: right;
+  padding-top: 4px;
+}

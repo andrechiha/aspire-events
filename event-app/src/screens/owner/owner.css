@@ -1,0 +1,1170 @@
+/* ================================================================
+   OWNER SCREENS — Dark Theme
+   ================================================================ */
+
+/* ── Shared empty state ── */
+.ow-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+}
+
+.ow-empty p {
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.ow-empty-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ================================================================
+   PENDING EVENTS — Review Cards
+   ================================================================ */
+.ow-pending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.ow-review-card {
+  background: #111;
+  border-radius: 14px;
+  padding: 22px;
+  border: 1px solid #222;
+  transition: box-shadow 0.15s;
+}
+
+.ow-review-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ow-review-top {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.ow-review-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.ow-review-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ow-review-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px;
+}
+
+.ow-review-creator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #888;
+  background: #1a1a1a;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.ow-review-desc {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.ow-review-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.ow-review-details span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #888;
+}
+
+.ow-review-link {
+  display: inline-block;
+  font-size: 13px;
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.ow-review-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Approve / Reject Buttons ── */
+.ow-review-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #222;
+}
+
+.ow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.ow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ow-btn--approve {
+  background: #059669;
+  color: #fff;
+}
+
+.ow-btn--approve:hover:not(:disabled) {
+  background: #047857;
+}
+
+.ow-btn--reject {
+  background: transparent;
+  color: #f87171;
+  border: 1.5px solid rgba(220, 38, 38, 0.3);
+}
+
+.ow-btn--reject:hover:not(:disabled) {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: #f87171;
+}
+
+/* ================================================================
+   ALL EVENTS — Filter Bar
+   ================================================================ */
+.ow-filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.ow-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid #333;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.ow-filter-tab:hover {
+  border-color: #555;
+  color: #fff;
+}
+
+.ow-filter-tab--active {
+  background: #FFD700;
+  color: #000;
+  border-color: #FFD700;
+}
+
+.ow-filter-tab--active:hover {
+  border-color: #FFD700;
+}
+
+.ow-filter-count {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ow-filter-tab--active .ow-filter-count {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ================================================================
+   ALL EVENTS — Grid & Cards
+   ================================================================ */
+.ow-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.ow-event-card {
+  background: #111;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #222;
+  transition: transform 0.15s, box-shadow 0.15s;
+  align-self: start;
+}
+
+.ow-event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.ow-event-top {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ow-event-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.ow-event-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 8px;
+}
+
+.ow-event-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ow-event-creator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #888;
+  margin-top: 3px;
+}
+
+.ow-event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.ow-event-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* ── Status dropdown ── */
+.ow-event-status-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #222;
+}
+
+.ow-status-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+}
+
+.ow-status-select {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #1a1a1a;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.ow-status-select:focus {
+  border-color: #FFD700;
+  background: #0a0a0a;
+}
+
+.ow-status-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Error display ── */
+.ow-error {
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  margin-bottom: 16px;
+}
+
+/* ================================================================
+   USERS LIST
+   ================================================================ */
+.ow-users-list {
+  background: #111;
+  border-radius: 14px;
+  border: 1px solid #222;
+  overflow: hidden;
+}
+
+.ow-users-header {
+  display: grid;
+  grid-template-columns: 1fr 160px 120px 100px;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #0a0a0a;
+  border-bottom: 1px solid #222;
+  font-size: 11px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ow-user-row {
+  display: grid;
+  grid-template-columns: 1fr 160px 120px 100px;
+  gap: 12px;
+  padding: 14px 20px;
+  align-items: center;
+  border-bottom: 1px solid #1a1a1a;
+  transition: background 0.1s;
+}
+
+.ow-user-row:last-child {
+  border-bottom: none;
+}
+
+.ow-user-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ow-user-row--banned {
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.ow-user-row--banned:hover {
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.ow-user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ow-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #FFD700;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.ow-user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  display: block;
+}
+
+.ow-you-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  background: rgba(255, 215, 0, 0.15);
+  color: #FFD700;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.ow-banned-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.ow-user-role-cell {
+  display: flex;
+  align-items: center;
+}
+
+.ow-role-select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #1a1a1a;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.ow-role-select:focus {
+  border-color: #FFD700;
+  background: #0a0a0a;
+}
+
+.ow-role-select:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ow-user-date-cell {
+  font-size: 13px;
+  color: #888;
+}
+
+.ow-user-actions-cell {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ow-ban-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid rgba(220, 38, 38, 0.3);
+  background: transparent;
+  color: #f87171;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.ow-ban-btn:hover:not(:disabled) {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: #f87171;
+}
+
+.ow-ban-btn--unban {
+  border-color: rgba(5, 150, 105, 0.3);
+  color: #34d399;
+}
+
+.ow-ban-btn--unban:hover:not(:disabled) {
+  background: rgba(5, 150, 105, 0.1);
+  border-color: #34d399;
+}
+
+.ow-ban-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================================================================
+   MONEY BANNER
+   ================================================================ */
+.ow-money-banner {
+  background: linear-gradient(135deg, #111 0%, #1a1a0a 100%);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.ow-money-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  color: #FFD700;
+}
+
+.ow-money-total {
+  display: block;
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.ow-money-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  margin-top: 2px;
+}
+
+.ow-money-breakdown {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ow-money-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ow-money-item--accent .ow-money-item-val {
+  color: #FFD700;
+}
+
+.ow-money-item-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ow-money-item-lbl {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+}
+
+.ow-money-divider {
+  width: 1px;
+  height: 28px;
+  background: #222;
+}
+
+/* ================================================================
+   SEARCH BAR
+   ================================================================ */
+.ow-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+}
+
+.ow-search-bar:focus-within {
+  border-color: #FFD700;
+}
+
+.ow-search-icon {
+  color: #666;
+  flex-shrink: 0;
+}
+
+.ow-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.ow-search-input::placeholder {
+  color: #555;
+}
+
+/* ================================================================
+   REVENUE / STATS
+   ================================================================ */
+.ow-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.ow-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 14px;
+  padding: 18px 16px;
+}
+
+.ow-stat-card--accent {
+  border-color: rgba(255, 215, 0, 0.2);
+  background: rgba(255, 215, 0, 0.04);
+}
+
+.ow-stat-icon {
+  color: #FFD700;
+  flex-shrink: 0;
+}
+
+.ow-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ow-stat-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ow-stat-label {
+  font-size: 12px;
+  color: #888;
+  font-weight: 600;
+}
+
+/* Per-event sales row */
+.ow-event-sales {
+  display: flex;
+  gap: 16px;
+  padding: 10px 14px;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.ow-event-sales-item {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ow-event-sales-val {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ow-event-sales-lbl {
+  font-size: 11px;
+  color: #888;
+  font-weight: 600;
+}
+
+.ow-event-sales-item--accent .ow-event-sales-val {
+  color: #FFD700;
+}
+
+/* ── Progress bar ── */
+.ow-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.ow-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ow-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #f59e0b);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.ow-progress-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* ── Expand / collapse button ── */
+.ow-expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #333;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.ow-expand-btn:hover {
+  background: #1a1a1a;
+  color: #FFD700;
+  border-color: #FFD700;
+}
+
+/* ── Expanded detail panel ── */
+.ow-event-detail-panel {
+  margin-top: 12px;
+  padding: 14px;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  max-height: 350px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
+}
+
+.ow-event-detail-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.ow-event-detail-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ow-event-detail-panel::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.ow-detail-section {
+  margin-bottom: 16px;
+}
+
+.ow-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.ow-detail-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #151515;
+}
+
+/* RSVP section */
+.ow-rsvp-row {
+  display: flex;
+  gap: 10px;
+}
+.ow-rsvp-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #1a1a1a;
+}
+.ow-rsvp-item--going { color: #4ade80; }
+.ow-rsvp-item--maybe { color: #facc15; }
+.ow-rsvp-item--no    { color: #f87171; }
+.ow-rsvp-count {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+.ow-rsvp-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+
+/* ── Wave breakdown ── */
+.ow-wave-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: #0f0f0f;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.ow-wave-info {
+  width: 130px;
+  flex-shrink: 0;
+}
+
+.ow-wave-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ow-wave-price {
+  display: block;
+  font-size: 11px;
+  color: #888;
+}
+
+.ow-wave-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ow-wave-bar {
+  height: 100%;
+  background: #FFD700;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.ow-wave-stats {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  white-space: nowrap;
+  width: 80px;
+  text-align: right;
+}
+
+/* ── Orders list ── */
+.ow-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ow-order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #0f0f0f;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.ow-order-row:hover {
+  background: #151515;
+}
+
+.ow-order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ow-order-buyer {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ow-gift-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255,215,0,0.15);
+  color: #FFD700;
+  letter-spacing: 0.5px;
+}
+.ow-order-recipient {
+  font-size: 11px;
+  color: #FFD700;
+  font-weight: 500;
+}
+.ow-holder-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 3px;
+}
+.ow-holder-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  color: #ccc;
+  border: 1px solid #2a2a2a;
+}
+
+.ow-order-meta {
+  font-size: 11px;
+  color: #666;
+}
+
+.ow-order-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.ow-order-amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.ow-order-date {
+  font-size: 11px;
+  color: #666;
+}
+
+.ow-order-nums {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 2px 0;
+}
+
+.ow-order-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #1a1a1a;
+  border: 1px solid #222;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #aaa;
+  font-family: monospace;
+}
+
+.ow-order-tag--tkt {
+  color: #FFD700;
+  border-color: rgba(255, 215, 0, 0.2);
+  background: rgba(255, 215, 0, 0.06);
+}
+
+.ow-qr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 6px;
+  background: rgba(255, 215, 0, 0.08);
+  color: #FFD700;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  margin-top: 2px;
+}
+
+.ow-qr-btn:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #FFD700;
+}
+
+.ow-orders-more {
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
+  color: #888;
+  font-weight: 600;
+}
+
+/* ── Top Sellers Section ── */
+.ow-top-sellers {
+  margin-bottom: 24px;
+}
+
+.ow-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 14px;
+}
+
+.ow-section-title svg {
+  color: #FFD700;
+}
+
+.ow-top-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ow-top-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  transition: transform 0.1s;
+}
+
+.ow-top-item:hover {
+  transform: translateX(4px);
+}
+
+.ow-top-rank {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFD700;
+  width: 30px;
+  text-align: center;
+}
+
+.ow-top-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.ow-top-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ow-top-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.ow-top-bar-wrap {
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ow-top-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #f59e0b);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.ow-top-nums {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.ow-top-tickets {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ow-top-revenue {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFD700;
+}
+
+.ow-top-fee {
+  font-size: 10px;
+  font-weight: 600;
+  color: #666;
+}
+
+/* Total column in per-event sales */
+.ow-event-sales-item--total .ow-event-sales-val {
+  color: #fff;
+  font-size: 15px;
+}
+
+.ow-event-sales-item--total .ow-event-sales-lbl {
+  color: #aaa;
+  font-weight: 700;
+}
+
+/* Order fee line */
+.ow-order-fee {
+  font-size: 10px;
+  color: #FFD700;
+  font-weight: 600;
+}
