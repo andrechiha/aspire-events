@@ -385,6 +385,15 @@
   min-height: 100vh;
 }
 
+/* Hide mobile-only logout on desktop */
+.adm-nav-logout-mobile {
+  display: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 /* ── Shared page styles ── */
 .page-header {
   margin-bottom: 24px;
@@ -400,4 +409,99 @@
   color: #888;
   font-size: 14px;
   margin-top: 4px;
+}
+
+/* ================================================================
+   MOBILE RESPONSIVE — Admin Layout (manager / owner)
+   ================================================================ */
+@media (max-width: 768px) {
+  .adm-sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    border-right: none;
+    border-top: 1px solid #1a1a1a;
+    z-index: 200;
+    padding: 0;
+  }
+
+  .adm-sidebar-header {
+    display: none;
+  }
+
+  .adm-nav {
+    flex-direction: row;
+    flex: 1;
+    padding: 0;
+    gap: 0;
+    justify-content: space-around;
+  }
+
+  .adm-nav-item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 4px;
+    font-size: 9px;
+    border-radius: 0;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
+  .adm-nav-item svg { width: 20px; height: 20px; }
+
+  .adm-nav-item--active {
+    background: transparent;
+    color: #FFD700;
+  }
+  .adm-nav-item--active:hover {
+    background: transparent;
+  }
+
+  .adm-footer {
+    display: none;
+  }
+
+  .adm-main {
+    margin-left: 0;
+    padding: 16px 12px 80px;
+  }
+
+  .adm-layout {
+    flex-direction: column;
+  }
+
+  .adm-nav-logout-mobile {
+    display: flex;
+    color: #888;
+  }
+
+  /* Client layout tweaks */
+  .cl-topbar-logo {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .cl-main {
+    padding: 12px 10px 80px;
+  }
+
+  .cl-tab span {
+    font-size: 8px;
+  }
+  .cl-tab svg { width: 18px; height: 18px; }
+
+  .cl-loc-dropdown {
+    position: fixed;
+    top: auto;
+    bottom: 60px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
 }

@@ -295,6 +295,10 @@ export default function Layout() {
               <span>{item.label}</span>
             </NavLink>
           ))}
+          <button className="adm-nav-item adm-nav-logout-mobile" onClick={handleSignOut}>
+            <LogOut size={20} />
+            <span>Logout</span>
+          </button>
         </nav>
 
         <div className="adm-footer">

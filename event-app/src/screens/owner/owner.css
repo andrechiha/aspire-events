@@ -1168,3 +1168,42 @@
   color: #FFD700;
   font-weight: 600;
 }
+
+/* ================================================================
+   MOBILE RESPONSIVE — Owner Screens
+   ================================================================ */
+@media (max-width: 768px) {
+  .ow-events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ow-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ow-users-header {
+    grid-template-columns: 1fr 80px 80px;
+    gap: 6px;
+    padding: 10px 12px;
+    font-size: 10px;
+  }
+  .ow-users-header span:nth-child(2) { display: none; }
+
+  .ow-user-row {
+    grid-template-columns: 1fr 80px 80px;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+  .ow-user-row > *:nth-child(2) { display: none; }
+
+  .ow-rsvp-row {
+    flex-wrap: wrap;
+  }
+  .ow-rsvp-item {
+    min-width: calc(50% - 10px);
+  }
+
+  .ow-event-sales {
+    flex-wrap: wrap;
+  }
+}

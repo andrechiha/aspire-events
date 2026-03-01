@@ -1817,3 +1817,39 @@ textarea.labeled-input__field {
 .ec-kick-btn:disabled { opacity: .5; cursor: default; }
 .ec-kick-btn--unkick { border-color: rgba(34,197,94,.3); background: rgba(34,197,94,.08); color: #22c55e; }
 .ec-kick-btn--unkick:hover { background: rgba(34,197,94,.15); }
+
+/* ================================================================
+   MOBILE RESPONSIVE — Manager Screens
+   ================================================================ */
+@media (max-width: 768px) {
+  .ce-page { max-width: 100%; }
+  .mg-page { max-width: 100%; }
+  .air-page { max-width: 100%; }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mg-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .air-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dtp-time-scroll {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mg-event-sales {
+    flex-wrap: wrap;
+  }
+
+  .mg-rsvp-row {
+    flex-wrap: wrap;
+  }
+  .mg-rsvp-item {
+    min-width: calc(50% - 10px);
+  }
+}

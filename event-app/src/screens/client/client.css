@@ -3264,3 +3264,76 @@
   flex-shrink: 0;
 }
 .cl-chat-arrow { color: #333; flex-shrink: 0; }
+
+/* ================================================================
+   MOBILE RESPONSIVE — Client Screens
+   ================================================================ */
+@media (max-width: 768px) {
+  /* Event cards grid */
+  .bg-search-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+
+  /* Event detail */
+  .ed-banner { height: 220px; }
+  .ed-content { padding: 16px 12px; }
+  .ed-title { font-size: 22px; }
+  .ed-section-title { font-size: 16px; }
+
+  .ed-rsvp-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ed-rsvp-btn {
+    font-size: 12px;
+  }
+
+  /* Ticket purchase modal */
+  .pm-modal {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    padding: 20px 14px 28px;
+  }
+
+  /* Media grid */
+  .bg-media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  /* Notifications & settings */
+  .bg-notif { max-width: 100%; padding: 16px 12px 32px; }
+  .bg-settings { max-width: 100%; padding: 16px 12px 32px; }
+
+  /* Chat screen */
+  .ec-input-bar { padding: 8px 6px; gap: 4px; }
+  .ec-msg-sender { font-size: 11px; }
+
+  /* Calendar */
+  .cal-grid { gap: 2px; }
+
+  /* My Tickets */
+  .bg-ticket-card { padding: 14px; }
+
+  /* Event list cards */
+  .event-card { min-width: 0; }
+
+  /* Chat list */
+  .cl-chat-card { padding: 12px 10px; }
+
+  /* Chat screen */
+  .ec-page {
+    height: calc(100vh - 52px - 52px);
+    margin: -12px -10px -80px;
+  }
+  .ec-header { padding: 10px 10px; gap: 8px; }
+  .ec-header-title { font-size: 14px; }
+  .ec-header-sub { font-size: 10px; }
+
+  /* Event detail */
+  .ed-content { padding: 14px 12px; }
+  .ed-info-grid { gap: 10px; }
+
+  /* Profile menu */
+  .bg-profile { max-width: 100%; padding: 16px 12px 32px; }
+}
