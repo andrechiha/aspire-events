@@ -207,7 +207,6 @@
 .cl-main {
   flex: 1;
   padding: 16px 16px 80px;
-  overflow-y: auto;
 }
 
 .cl-layout--fullscreen {

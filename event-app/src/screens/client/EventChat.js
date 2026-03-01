@@ -223,11 +223,18 @@ export default function EventChat() {
     if (ev.chat_enabled === false) { setEvent(ev); setLoading(false); return; }
     setEvent(ev);
 
-    const { count } = await supabase
+    const { data: allAttendees } = await supabase
       .from('event_attendees')
-      .select('*', { count: 'exact', head: true })
+      .select('user_id')
       .eq('event_id', id);
-    setAttendeeCount(count || 0);
+    const { data: leftUsers } = await supabase
+      .from('chat_left_users')
+      .select('user_id')
+      .eq('event_id', id);
+    const leftIds = new Set((leftUsers || []).map((l) => l.user_id));
+    const activeMembers = (allAttendees || []).filter((a) => !leftIds.has(a.user_id));
+    const creatorIncluded = activeMembers.some((a) => a.user_id === ev.created_by);
+    setAttendeeCount(activeMembers.length + (creatorIncluded ? 0 : 1));
 
     const { data: att } = await supabase
       .from('event_attendees')

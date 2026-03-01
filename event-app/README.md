@@ -128,6 +128,14 @@ Event managers traditionally rely on post-event surveys (which most people ignor
 - Live counts visible on the event detail page
 - RSVP breakdown visible to event managers and owners in the detail panel
 
+**Mobile-Friendly UI**
+- Fully responsive design that works on phones, tablets, and desktops
+- On mobile, the admin sidebar transforms into a bottom navigation bar
+- Chat screens go fullscreen on mobile with no wasted space (top bar and tab bar hide automatically)
+- Event grids, ticket modals, forms, and all pages adapt to small screens
+- Safe area support for iOS devices (notch, home indicator)
+- No horizontal overflow or layout breaking on any screen size
+
 ---
 
 ## Getting Started

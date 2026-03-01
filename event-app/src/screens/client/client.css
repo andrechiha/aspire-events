@@ -2495,6 +2495,9 @@
   border: 1px solid #222;
   cursor: pointer;
   user-select: text;
+  max-width: 75%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .ec-msg--me .ec-msg-bubble {
   background: linear-gradient(135deg, #1a1a2e, #16213e);
@@ -2511,7 +2514,8 @@
   font-size: 14px;
   line-height: 1.4;
   white-space: pre-wrap;
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .ec-msg-time {
@@ -2758,7 +2762,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 12px;
+  padding: 10px 12px env(safe-area-inset-bottom, 10px);
   background: #111;
   border-top: 1px solid #222;
   flex-shrink: 0;
