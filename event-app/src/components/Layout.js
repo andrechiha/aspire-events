@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
   Home, Search, CalendarDays, Ticket, Menu,
@@ -210,8 +210,10 @@ function LocationPicker({ isOpen, onClose, onSelect, currentLocation }) {
 export default function Layout() {
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const loc = useLocation();
   const role = profile?.role || 'client';
   const isClient = role === 'client';
+  const isFullscreen = /\/(event-chat|event\/[^/]+\/chat)/.test(loc.pathname);
   const [locOpen, setLocOpen] = useState(false);
   const [location, setLocation] = useState('Anywhere');
 
@@ -226,47 +228,51 @@ export default function Layout() {
 
   if (isClient) {
     return (
-      <div className="cl-layout">
-        <header className="cl-topbar">
-          <div className="cl-topbar-logo" onClick={() => navigate('/')}>ASPIRE EVENTS</div>
-          <div className="cl-topbar-actions">
-            <button className="cl-topbar-btn" onClick={() => navigate('/notifications')} title="Notifications">
-              <Bell size={20} />
-            </button>
-            <div className="cl-loc-wrapper">
-              <button className="cl-topbar-btn" onClick={() => setLocOpen(!locOpen)} title="Location">
-                <MapPin size={20} />
+      <div className={`cl-layout ${isFullscreen ? 'cl-layout--fullscreen' : ''}`}>
+        {!isFullscreen && (
+          <header className="cl-topbar">
+            <div className="cl-topbar-logo" onClick={() => navigate('/')}>ASPIRE EVENTS</div>
+            <div className="cl-topbar-actions">
+              <button className="cl-topbar-btn" onClick={() => navigate('/notifications')} title="Notifications">
+                <Bell size={20} />
               </button>
-              <LocationPicker
-                isOpen={locOpen}
-                onClose={() => setLocOpen(false)}
-                onSelect={setLocation}
-                currentLocation={location}
-              />
+              <div className="cl-loc-wrapper">
+                <button className="cl-topbar-btn" onClick={() => setLocOpen(!locOpen)} title="Location">
+                  <MapPin size={20} />
+                </button>
+                <LocationPicker
+                  isOpen={locOpen}
+                  onClose={() => setLocOpen(false)}
+                  onSelect={setLocation}
+                  currentLocation={location}
+                />
+              </div>
+              <button className="cl-topbar-avatar" onClick={() => navigate('/settings')} title="My Account">
+                {initials}
+              </button>
             </div>
-            <button className="cl-topbar-avatar" onClick={() => navigate('/settings')} title="My Account">
-              {initials}
-            </button>
-          </div>
-        </header>
-        <main className="cl-main">
+          </header>
+        )}
+        <main className={`cl-main ${isFullscreen ? 'cl-main--fullscreen' : ''}`}>
           <Outlet context={{ location }} />
         </main>
-        <nav className="cl-tab-bar">
-          {CLIENT_TABS.map((tab) => (
-            <NavLink
-              key={tab.to}
-              to={tab.to}
-              end={tab.to === '/'}
-              className={({ isActive }) =>
-                `cl-tab ${isActive ? 'cl-tab--active' : ''}`
-              }
-            >
-              <tab.icon size={22} />
-              <span>{tab.label}</span>
-            </NavLink>
-          ))}
-        </nav>
+        {!isFullscreen && (
+          <nav className="cl-tab-bar">
+            {CLIENT_TABS.map((tab) => (
+              <NavLink
+                key={tab.to}
+                to={tab.to}
+                end={tab.to === '/'}
+                className={({ isActive }) =>
+                  `cl-tab ${isActive ? 'cl-tab--active' : ''}`
+                }
+              >
+                <tab.icon size={22} />
+                <span>{tab.label}</span>
+              </NavLink>
+            ))}
+          </nav>
+        )}
       </div>
     );
   }
@@ -274,7 +280,7 @@ export default function Layout() {
   const items = SIDEBAR_ITEMS[role] || [];
 
   return (
-    <div className="adm-layout">
+    <div className={`adm-layout ${isFullscreen ? 'adm-layout--fullscreen' : ''}`}>
       <aside className="adm-sidebar">
         <div className="adm-sidebar-header">
           <span className="adm-logo">🎫</span>

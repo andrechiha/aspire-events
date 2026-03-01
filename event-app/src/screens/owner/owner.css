@@ -1206,4 +1206,17 @@
   .ow-event-sales {
     flex-wrap: wrap;
   }
+
+  /* Event cards */
+  .ow-event-card { padding: 14px; }
+  .ow-event-title { font-size: 16px; }
+
+  /* Pending events */
+  .ow-pending-card { padding: 14px; }
+  .ow-pending-actions { flex-direction: column; gap: 6px; }
+  .ow-pending-actions button { width: 100%; }
+
+  /* Stats */
+  .ow-stat-card { padding: 12px; }
+  .ow-stat-val { font-size: 18px; }
 }

@@ -210,6 +210,14 @@
   overflow-y: auto;
 }
 
+.cl-layout--fullscreen {
+  height: 100vh;
+}
+.cl-main--fullscreen {
+  padding: 0;
+  overflow: hidden;
+}
+
 .cl-tab-bar {
   position: fixed;
   bottom: 0;
@@ -479,6 +487,14 @@
   .adm-nav-logout-mobile {
     display: flex;
     color: #888;
+  }
+
+  /* Hide admin bottom bar on fullscreen pages (chat) */
+  .adm-layout--fullscreen .adm-sidebar {
+    display: none;
+  }
+  .adm-layout--fullscreen .adm-main {
+    padding: 0;
   }
 
   /* Client layout tweaks */

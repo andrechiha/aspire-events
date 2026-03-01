@@ -2221,6 +2221,10 @@
   color: #fff;
   overflow: hidden;
 }
+.cl-main--fullscreen .ec-page {
+  height: 100vh;
+  margin: 0;
+}
 .adm-main .ec-page {
   height: 100vh;
   margin: -32px;
@@ -3276,64 +3280,90 @@
   }
 
   /* Event detail */
-  .ed-banner { height: 220px; }
-  .ed-content { padding: 16px 12px; }
-  .ed-title { font-size: 22px; }
-  .ed-section-title { font-size: 16px; }
+  .ed-banner { height: 200px; }
+  .ed-content { padding: 14px 12px; }
+  .ed-title { font-size: 20px; }
+  .ed-section-title { font-size: 15px; }
+  .ed-info-grid { gap: 8px; }
+  .ed-desc { font-size: 13px; }
+  .ed-rule-text { font-size: 13px; }
 
   .ed-rsvp-row {
     flex-direction: column;
     gap: 6px;
   }
-  .ed-rsvp-btn {
-    font-size: 12px;
-  }
+  .ed-rsvp-btn { font-size: 12px; padding: 10px 8px; }
+
+  .ed-actions { flex-direction: column; gap: 8px; }
+  .ed-actions button { width: 100%; }
+
+  /* Waves / ticket selection */
+  .ed-wave-card { padding: 12px; }
 
   /* Ticket purchase modal */
   .pm-modal {
     max-width: 100%;
     border-radius: 16px 16px 0 0;
-    padding: 20px 14px 28px;
+    padding: 18px 12px 24px;
   }
+  .pm-title { font-size: 18px; }
+  .pm-holder-input { font-size: 13px; }
 
   /* Media grid */
   .bg-media-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 6px;
   }
 
   /* Notifications & settings */
   .bg-notif { max-width: 100%; padding: 16px 12px 32px; }
   .bg-settings { max-width: 100%; padding: 16px 12px 32px; }
+  .bg-settings-section { padding: 14px; }
 
   /* Chat screen */
   .ec-input-bar { padding: 8px 6px; gap: 4px; }
   .ec-msg-sender { font-size: 11px; }
+  .ec-msg-bubble { font-size: 13px; max-width: 85%; }
+  .ec-poll-card { padding: 12px; }
 
-  /* Calendar */
-  .cal-grid { gap: 2px; }
-
-  /* My Tickets */
-  .bg-ticket-card { padding: 14px; }
-
-  /* Event list cards */
-  .event-card { min-width: 0; }
-
-  /* Chat list */
-  .cl-chat-card { padding: 12px 10px; }
-
-  /* Chat screen */
+  /* Chat fullscreen */
   .ec-page {
-    height: calc(100vh - 52px - 52px);
-    margin: -12px -10px -80px;
+    height: 100vh;
+    margin: 0;
   }
   .ec-header { padding: 10px 10px; gap: 8px; }
   .ec-header-title { font-size: 14px; }
   .ec-header-sub { font-size: 10px; }
 
-  /* Event detail */
-  .ed-content { padding: 14px 12px; }
-  .ed-info-grid { gap: 10px; }
+  /* Calendar */
+  .cal-grid { gap: 2px; }
+  .cal-day { font-size: 12px; padding: 6px 2px; }
+
+  /* My Tickets */
+  .bg-ticket-card { padding: 12px; }
+  .bg-ticket-title { font-size: 15px; }
+
+  /* Event list horizontal scroll cards */
+  .event-card { min-width: 0; width: 160px; }
+
+  /* Chat list */
+  .cl-chat-card { padding: 12px 10px; }
+  .cl-chat-title { font-size: 14px; }
 
   /* Profile menu */
   .bg-profile { max-width: 100%; padding: 16px 12px 32px; }
+  .bg-profile-card { padding: 16px; }
+
+  /* Search screen */
+  .bg-search-input { font-size: 14px; }
+  .bg-chips { gap: 6px; }
+
+  /* Group info panel */
+  .ec-group-info { padding: 16px 12px; }
+
+  /* Pinned messages */
+  .ec-pinned-banner { padding: 8px 10px; }
+
+  /* Reply bar */
+  .ec-reply-bar { padding: 6px 10px; }
 }
