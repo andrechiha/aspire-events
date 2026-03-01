@@ -206,11 +206,12 @@ export default function EventChat() {
   const listRef = useRef(null);
   const fileRef = useRef(null);
   const videoRef = useRef(null);
+  const initialScrollDone = useRef(false);
 
   const isCreator = event?.created_by === profile?.id;
 
-  const scrollToBottom = useCallback(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = useCallback((instant) => {
+    bottomRef.current?.scrollIntoView({ behavior: instant ? 'instant' : 'smooth' });
   }, []);
 
   const fetchInitial = useCallback(async () => {
@@ -346,7 +347,17 @@ export default function EventChat() {
     return () => { supabase.removeChannel(channel); };
   }, [id, isAttendee, hasLeft, profiles]);
 
-  useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
+  useEffect(() => {
+    if (messages.length === 0) return;
+    if (!initialScrollDone.current) {
+      setTimeout(() => {
+        scrollToBottom(true);
+        initialScrollDone.current = true;
+      }, 100);
+    } else {
+      scrollToBottom(false);
+    }
+  }, [messages, scrollToBottom]);
 
   const ensureProfile = (userId) => {
     if (!profiles[userId] && userId === profile.id) {
