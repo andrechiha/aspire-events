@@ -16,7 +16,7 @@ export default function AIReport() {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('expectations');
-  const [msgStats, setMsgStats] = useState({ total: 0, before: 0, after: 0 });
+  const [msgStats, setMsgStats] = useState({ total: 0, before: 0, during: 0, after: 0 });
   const [allMessages, setAllMessages] = useState([]);
 
   const [expData, setExpData] = useState(null);
@@ -165,24 +165,38 @@ Rules:
     setExpLoading(false);
   };
 
-  const generateFeedback = async () => {
+  const generateFeedback = async (useDuringEvent = false) => {
     setFbLoading(true);
     setFbError('');
     try {
       if (!event) throw new Error('Event not loaded');
-      const end = event.end_datetime ? new Date(event.end_datetime) : new Date(event.start_datetime);
-      const postMsgs = allMessages.filter((m) => new Date(m.created_at) > end).map((m) => m.message);
-      if (postMsgs.length === 0) throw new Error('No post-event feedback messages found yet.');
+      const start = new Date(event.start_datetime);
+      const end = event.end_datetime ? new Date(event.end_datetime) : start;
+      let targetMsgs;
+      let label;
+      if (useDuringEvent) {
+        targetMsgs = allMessages.filter((m) => {
+          const t = new Date(m.created_at);
+          return t >= start && t <= end;
+        }).map((m) => m.message);
+        label = 'during-event';
+        if (targetMsgs.length === 0) throw new Error('No during-event messages found.');
+      } else {
+        targetMsgs = allMessages.filter((m) => new Date(m.created_at) > end).map((m) => m.message);
+        label = 'post-event';
+        if (targetMsgs.length === 0) throw new Error('No post-event feedback messages found yet.');
+      }
 
-      const sampled = sample(postMsgs, 300);
-      const systemPrompt = `You are an expert event feedback analyst. Analyze the post-event chat messages from attendees and produce a JSON report about their FEEDBACK.
+      const sampled = sample(targetMsgs, 300);
+      const isDuring = label === 'during-event';
+      const systemPrompt = `You are an expert event feedback analyst. Analyze the ${isDuring ? 'during-event' : 'post-event'} chat messages from attendees and produce a JSON report about their FEEDBACK${isDuring ? ' and reactions during the event' : ''}.
 
 The event: "${event.title}"
 Event date: ${event.start_datetime} to ${event.end_datetime || event.start_datetime}
 
 Produce this exact JSON:
 {
-  "feedback_summary": "3-5 sentence detailed summary of attendee feedback after the event",
+  "feedback_summary": "3-5 sentence detailed summary of attendee feedback${isDuring ? ' and reactions during the event' : ' after the event'}",
   "sentiment_score": <integer 0-100, 0=very negative, 50=neutral, 100=very positive>,
   "positives": ["positive point 1", "positive point 2", ...],
   "negatives": ["negative point 1", "negative point 2", ...],
@@ -195,8 +209,8 @@ Rules:
 - top_topics should have 3-5 entries sorted by count desc
 - Be insightful and detailed`;
 
-      const parsed = await callOpenAI(systemPrompt, `=== POST-EVENT FEEDBACK (${postMsgs.length} total) ===\n${sampled.join('\n')}`);
-      parsed.message_count = postMsgs.length;
+      const parsed = await callOpenAI(systemPrompt, `=== ${isDuring ? 'DURING-EVENT' : 'POST-EVENT'} FEEDBACK (${targetMsgs.length} total) ===\n${sampled.join('\n')}`);
+      parsed.message_count = targetMsgs.length;
       setFbData(parsed);
 
       await supabase.from('ai_event_reports').upsert({
@@ -388,10 +402,18 @@ Rules:
               </div>
             </div>
             {eventEnded && (
-              <button className="air-gen-btn air-gen-btn--fb" onClick={generateFeedback} disabled={fbLoading}>
-                <RefreshCw size={14} className={fbLoading ? 'ai-spin' : ''} />
-                {fbLoading ? 'Analyzing...' : fbData ? 'Regenerate' : 'Generate'}
-              </button>
+              <div className="air-gen-btns">
+                <button className="air-gen-btn air-gen-btn--fb" onClick={() => generateFeedback(false)} disabled={fbLoading}>
+                  <RefreshCw size={14} className={fbLoading ? 'ai-spin' : ''} />
+                  {fbLoading ? 'Analyzing...' : fbData ? 'Regenerate' : 'Generate'}
+                </button>
+                {msgStats.after === 0 && msgStats.during > 0 && (
+                  <button className="air-gen-btn air-gen-btn--during" onClick={() => generateFeedback(true)} disabled={fbLoading} title="Use messages sent during the event">
+                    <RefreshCw size={14} className={fbLoading ? 'ai-spin' : ''} />
+                    Use during-event ({msgStats.during})
+                  </button>
+                )}
+              </div>
             )}
           </div>
 
@@ -400,6 +422,26 @@ Rules:
               <Zap size={32} />
               <p>Feedback analysis will be available after the event ends.</p>
               <span>Attendees will share their experience in the group chat after the event.</span>
+            </div>
+          )}
+
+          {eventEnded && msgStats.after === 0 && !fbData && (
+            <div className="air-empty-feedback">
+              <MessageCircle size={28} className="air-empty-feedback-icon" />
+              <h3 className="air-empty-feedback-title">No post-event feedback yet</h3>
+              <p className="air-empty-feedback-text">
+                Feedback is generated from messages sent in the <strong>event chat after the event end time</strong>.
+                Right now there are no messages from after the event.
+              </p>
+              <p className="air-empty-feedback-hint">
+                Encourage attendees to open the event page and tap <strong>Join Event Chat</strong> to share how it went.
+                New messages they send will count as post-event feedback and you can generate the report here.
+              </p>
+              {msgStats.during > 0 && (
+                <p className="air-empty-feedback-fallback">
+                  You have <strong>{msgStats.during} during-event</strong> messages. You can generate a feedback-style report from those below.
+                </p>
+              )}
             </div>
           )}
 
