@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import { supabase } from '../../services/supabaseClient';
 import { Search, MapPin, CalendarDays } from 'lucide-react';
 import './client.css';
@@ -15,7 +15,12 @@ function matchesLocation(ev, location) {
   );
 }
 
-const FILTERS = ['All', 'This Week', 'Near Me'];
+function isEventPast(ev) {
+  const end = ev.end_datetime ? new Date(ev.end_datetime) : new Date(ev.start_datetime);
+  return end < new Date();
+}
+
+const FILTERS = ['All', 'This Week', 'Near Me', 'Past'];
 
 function haversineKm(lat1, lon1, lat2, lon2) {
   const R = 6371;
@@ -48,11 +53,12 @@ async function geocodeAddress(address) {
 
 export default function SearchEvents() {
   const navigate = useNavigate();
-  const { location } = useOutletContext();
+  const location = useLocation();
+  const { location: locationFilter } = useOutletContext();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState(location.state?.filter || 'All');
   const [userLoc, setUserLoc] = useState(null);
   const [geoLoading, setGeoLoading] = useState(false);
   const [eventCoords, setEventCoords] = useState({});
@@ -115,7 +121,7 @@ export default function SearchEvents() {
   }, []);
 
   const filtered = useMemo(() => {
-    let list = events.filter((e) => matchesLocation(e, location));
+    let list = events.filter((e) => matchesLocation(e, locationFilter));
 
     if (query.trim()) {
       const q = query.trim().toLowerCase();
@@ -134,6 +140,10 @@ export default function SearchEvents() {
       });
     }
 
+    if (filter === 'Past') {
+      list = list.filter(isEventPast).sort((a, b) => new Date(b.end_datetime || b.start_datetime) - new Date(a.end_datetime || a.start_datetime));
+    }
+
     if (filter === 'Near Me' && userLoc) {
       list = list.map((e) => {
         const lat = e.latitude || eventCoords[e.id]?.lat;
@@ -149,7 +159,7 @@ export default function SearchEvents() {
     }
 
     return list;
-  }, [events, query, filter, userLoc, location, eventCoords, now, endOfWeek]);
+  }, [events, query, filter, userLoc, locationFilter, eventCoords, now, endOfWeek]);
 
   const getActiveWave = (waves) => {
     if (!waves || waves.length === 0) return null;
@@ -198,8 +208,9 @@ export default function SearchEvents() {
       <div className="bg-search-grid">
         {filtered.map((ev) => {
           const active = getActiveWave(ev.ticket_waves);
+          const past = isEventPast(ev);
           return (
-            <div className="bg-card" key={ev.id} onClick={() => navigate(`/event/${ev.id}`)}>
+            <div className={`bg-card ${past ? 'bg-card--past' : ''}`} key={ev.id} onClick={() => navigate(`/event/${ev.id}`)}>
               {ev.logo_url ? (
                 <img src={ev.logo_url} alt="" className="bg-card-img" />
               ) : (
@@ -214,7 +225,7 @@ export default function SearchEvents() {
                 {ev._dist != null && (
                   <span className="bg-card-meta" style={{ color: '#FFD700' }}>{formatDist(ev._dist)} away</span>
                 )}
-                {active && <span className="bg-card-price">From ${Number(active.price).toFixed(2)}</span>}
+                {past ? <span className="bg-card-past">Ended</span> : active && <span className="bg-card-price">From ${Number(active.price).toFixed(2)}</span>}
               </div>
             </div>
           );

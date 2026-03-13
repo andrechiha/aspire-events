@@ -15,6 +15,11 @@ function matchesLocation(ev, location) {
   );
 }
 
+function isEventPast(ev) {
+  const end = ev.end_datetime ? new Date(ev.end_datetime) : new Date(ev.start_datetime);
+  return end < new Date();
+}
+
 export default function EventsList() {
   const navigate = useNavigate();
   const { location } = useOutletContext();
@@ -54,7 +59,13 @@ export default function EventsList() {
     locFiltered.filter((e) => new Date(e.start_datetime) > endOfWeek),
   [locFiltered, endOfWeek]);
 
-  const heroEvents = locFiltered.slice(0, 8);
+  const past = useMemo(() =>
+    locFiltered
+      .filter(isEventPast)
+      .sort((a, b) => new Date(b.end_datetime || b.start_datetime) - new Date(a.end_datetime || a.start_datetime)),
+  [locFiltered]);
+
+  const heroEvents = locFiltered.filter((e) => !isEventPast(e)).slice(0, 8);
   const [heroIdx, setHeroIdx] = useState(0);
   const heroTimer = useRef(null);
   const touchStart = useRef(null);
@@ -180,6 +191,16 @@ export default function EventsList() {
         </Section>
       )}
 
+      {past.length > 0 && (
+        <Section title="Past Events" onSeeAll={() => navigate('/search', { state: { filter: 'Past' } })}>
+          <div className="bg-hscroll">
+            {past.slice(0, 10).map((ev) => (
+              <EventCard key={ev.id} ev={ev} navigate={navigate} formatDate={formatDate} getActiveWave={getActiveWave} isPast />
+            ))}
+          </div>
+        </Section>
+      )}
+
       {locFiltered.length > 0 && (
         <Section title="All Events" onSeeAll={() => navigate('/search')}>
           <div className="bg-list">
@@ -238,10 +259,10 @@ function Section({ title, onSeeAll, children }) {
   );
 }
 
-function EventCard({ ev, navigate, formatDate, getActiveWave }) {
+function EventCard({ ev, navigate, formatDate, getActiveWave, isPast }) {
   const active = getActiveWave(ev.ticket_waves);
   return (
-    <div className="bg-card" onClick={() => navigate(`/event/${ev.id}`)}>
+    <div className={`bg-card ${isPast ? 'bg-card--past' : ''}`} onClick={() => navigate(`/event/${ev.id}`)}>
       {ev.logo_url ? (
         <img src={ev.logo_url} alt="" className="bg-card-img" />
       ) : (
@@ -253,7 +274,7 @@ function EventCard({ ev, navigate, formatDate, getActiveWave }) {
           <span className="bg-card-meta"><MapPin size={11} /> {ev.location_name}</span>
         )}
         <span className="bg-card-meta"><CalendarDays size={11} /> {formatDate(ev.start_datetime)}</span>
-        {active && <span className="bg-card-price">From ${Number(active.price).toFixed(2)}</span>}
+        {isPast ? <span className="bg-card-past">Ended</span> : active && <span className="bg-card-price">From ${Number(active.price).toFixed(2)}</span>}
       </div>
     </div>
   );
