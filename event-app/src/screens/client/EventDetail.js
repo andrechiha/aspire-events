@@ -303,6 +303,9 @@ export default function EventDetail() {
 
   const activeWave = waves.find((w) => w.is_active) || null;
   const soldOut = waves.length > 0 && waves.every((w) => w.remaining === 0);
+  const eventEnded = event
+    ? (event.end_datetime ? new Date(event.end_datetime) : new Date(event.start_datetime)) < new Date()
+    : false;
 
   const getNames = () => {
     if (qty === 1) return [giftMode ? giftName.trim() : (profile?.full_name || '')];
@@ -667,8 +670,22 @@ export default function EventDetail() {
           </div>
         )}
 
-        {/* Ticket bar with +/- */}
-        {profile?.role === 'client' && !soldOut && activeWave && (
+        {/* Ticket bar with +/- — only for upcoming events */}
+        {eventEnded && (
+          <div className="ed-section">
+            <div className="ed-ended-bar">
+              <XCircle size={24} className="ed-ended-icon" />
+              <div>
+                <p className="ed-ended-title">This event has ended</p>
+                <p className="ed-ended-text">Tickets are no longer available. View your past tickets in My Tickets.</p>
+                <button type="button" className="ed-ended-link" onClick={() => navigate('/my-tickets')}>
+                  My Tickets
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {profile?.role === 'client' && !eventEnded && !soldOut && activeWave && (
           <div className="ed-section">
             <div className="ed-ticket-bar-inline">
               <div className="ed-ticket-bar-left">
@@ -783,12 +800,12 @@ export default function EventDetail() {
           </div>
         )}
 
-        {soldOut && (
+        {!eventEnded && soldOut && (
           <div className="bg-soldout" style={{ marginTop: 20 }}>This event is sold out.</div>
         )}
       </div>
 
-      {activeWave && (
+      {activeWave && !eventEnded && (
         <PaymentModal
           isOpen={showPayment}
           onClose={() => {

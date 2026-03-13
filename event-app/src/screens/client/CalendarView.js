@@ -15,6 +15,11 @@ function matchesLocation(ev, location) {
   );
 }
 
+function isEventPast(ev) {
+  const end = ev.end_datetime ? new Date(ev.end_datetime) : new Date(ev.start_datetime);
+  return end < new Date();
+}
+
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function getMonthGrid(year, month) {
@@ -57,7 +62,7 @@ export default function CalendarView() {
 
   useEffect(() => { fetchEvents(); }, [fetchEvents]);
 
-  const locEvents = useMemo(() => events.filter((e) => matchesLocation(e, location)), [events, location]);
+  const locEvents = useMemo(() => events.filter((e) => !isEventPast(e) && matchesLocation(e, location)), [events, location]);
 
   const eventDatesMap = useMemo(() => {
     const map = {};
