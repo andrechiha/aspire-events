@@ -15,11 +15,6 @@ function matchesLocation(ev, location) {
   );
 }
 
-function isEventPast(ev) {
-  const end = ev.end_datetime ? new Date(ev.end_datetime) : new Date(ev.start_datetime);
-  return end < new Date();
-}
-
 const FILTERS = ['All', 'This Week', 'Near Me'];
 
 function haversineKm(lat1, lon1, lat2, lon2) {
@@ -120,7 +115,7 @@ export default function SearchEvents() {
   }, []);
 
   const filtered = useMemo(() => {
-    let list = events.filter((e) => !isEventPast(e) && matchesLocation(e, location));
+    let list = events.filter((e) => matchesLocation(e, location));
 
     if (query.trim()) {
       const q = query.trim().toLowerCase();

@@ -2511,8 +2511,9 @@
 
 .ec-msg-bubble {
   display: inline-flex;
+  flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
+  gap: 2px;
   padding: 8px 12px;
   border-radius: 16px 16px 16px 4px;
   background: #1a1a1a;
@@ -2528,6 +2529,7 @@
   border-color: rgba(255,215,0,0.15);
   border-radius: 16px 16px 4px 16px;
 }
+.ec-msg:not(.ec-msg--me) .ec-msg-bubble { align-items: flex-start; }
 .ec-msg-bubble--media {
   padding: 4px;
   flex-direction: column;
@@ -2547,14 +2549,16 @@
   color: #555;
   white-space: nowrap;
   flex-shrink: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 3px;
+  margin-top: 2px;
 }
 .ec-msg--me .ec-msg-time { color: rgba(255,215,0,0.4); }
 .ec-msg-bubble--media .ec-msg-time {
   align-self: flex-end;
   padding: 2px 6px;
+  margin-top: 0;
 }
 
 /* Pin button */

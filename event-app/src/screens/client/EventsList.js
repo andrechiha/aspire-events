@@ -15,11 +15,6 @@ function matchesLocation(ev, location) {
   );
 }
 
-function isEventPast(ev) {
-  const end = ev.end_datetime ? new Date(ev.end_datetime) : new Date(ev.start_datetime);
-  return end < new Date();
-}
-
 export default function EventsList() {
   const navigate = useNavigate();
   const { location } = useOutletContext();
@@ -38,8 +33,7 @@ export default function EventsList() {
 
   useEffect(() => { fetchEvents(); }, [fetchEvents]);
 
-  const upcomingOnly = useMemo(() => events.filter((e) => !isEventPast(e)), [events]);
-  const locFiltered = useMemo(() => upcomingOnly.filter((e) => matchesLocation(e, location)), [upcomingOnly, location]);
+  const locFiltered = useMemo(() => events.filter((e) => matchesLocation(e, location)), [events, location]);
 
   const { startOfToday, endOfWeek } = useMemo(() => {
     const n = new Date();
